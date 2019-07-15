@@ -1,16 +1,8 @@
-'''
-단순연결리스트(Singly Linked List)
-동적 메모리 할당을 이용해 노드들을 한 방햐응로 연결하여 리스트를 구현하는 자료구조
-
-순차탐색(Sequential Search)
-첫 노드부터 원하는 노드를 찾을 때까지 차례로 방문하는 방법
-'''
-
 class SList:
     class Node:
         def __init__(self, item, link):
             self.item = item
-            self.link = link
+            self.next = link
 
     def __init__(self):
         self.head = None
@@ -27,3 +19,38 @@ class SList:
         self.size += 1
 
     def insert_after(self, item, p):
+        p.next = SList.Node(item, p.next)
+        self.size += 1
+
+    def delete_front(self):
+        if self.is_empty():
+            raise EmptyError('Underflow')
+        else:
+            self.head = self.head.next
+            self.size -= 1
+
+    def delete_after(self, p):
+        if self.is_empty():
+            raise EmptyError('Underflow')
+        t = p.next
+        p.next = t.next
+        self.size -= 1
+
+    def search(self, target):
+        p = self.head
+        for k in range(self.size):
+            if target == p.item: return k
+            p = p.next
+        return None
+
+    def print_list(self):
+        p = self.head
+        while p:
+            if p.next != None:
+                print(p.item, ' -> ', end='')
+            else:
+                print(p.item)
+            p = p.next
+
+class EmptyError(Exception):
+    pass
