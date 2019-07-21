@@ -1,4 +1,4 @@
-from slist import SList
+from singly_linked_list.slist import SList
 
 if __name__ == '__main__':
     s = SList()
